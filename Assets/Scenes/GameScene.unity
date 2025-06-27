@@ -3728,7 +3728,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4660977716779342022}
   - component: {fileID: 183172746769922960}
-  - component: {fileID: 8438687768226289627}
   - component: {fileID: 8438687768226289628}
   m_Layer: 0
   m_Name: Wheels-RF
@@ -3760,53 +3759,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6223451252863932898}
   m_Mesh: {fileID: -2815908324364033102, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
---- !u!23 &3227704224036118407
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6411762422557250532}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 6470628660411565095, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  - {fileID: 4060243426561184367, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  - {fileID: 4177266562986158303, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &4130300233297494574
 Transform:
   m_ObjectHideFlags: 0
@@ -3861,13 +3813,13 @@ Transform:
   m_GameObject: {fileID: 5587601383652890291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -5.967}
+  m_LocalPosition: {x: 0, y: 1.09, z: -5.967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4455136921876718047}
-  - {fileID: 857360295}
   - {fileID: 1361220046}
+  - {fileID: 857360295}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &5356055236498999551
@@ -3919,7 +3871,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f33aad5d3d44cd9bd98d2b7a29d946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheels: []
+  wheels:
+  - wheelModel: {fileID: 251778464}
+    wheelCollider: {fileID: 6617276901966847758}
+    axelType: 0
+  - wheelModel: {fileID: 1097841280}
+    wheelCollider: {fileID: 7560678110407400451}
+    axelType: 1
+  - wheelModel: {fileID: 11296474}
+    wheelCollider: {fileID: 6909239879212842854}
+    axelType: 1
+  - wheelModel: {fileID: 297400475}
+    wheelCollider: {fileID: 8438687768226289628}
+    axelType: 0
+  maxSteerAngle: 30
 --- !u!54 &5587601383652890293
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3942,7 +3907,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -3965,7 +3930,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4130300233297494574}
   - component: {fileID: 1629785561247774857}
-  - component: {fileID: 6909239879212842853}
   - component: {fileID: 6909239879212842854}
   m_Layer: 0
   m_Name: Wheel-RR
@@ -3984,7 +3948,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1108675937349887518}
   - component: {fileID: 6617276901966847757}
-  - component: {fileID: 3227704224036118407}
   - component: {fileID: 6617276901966847758}
   m_Layer: 0
   m_Name: Wheel-LF
@@ -4040,53 +4003,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!23 &6909239879212842853
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6223451252863932898}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 5120509e2dd5a4d59adadce108a6e5c6, type: 2}
-  - {fileID: 2100000, guid: dbde99eef20504cf08e462c296930872, type: 2}
-  - {fileID: 4177266562986158303, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!146 &6909239879212842854
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -4126,53 +4042,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!23 &6938386463114058407
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7560678110407400450}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 6470628660411565095, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  - {fileID: 4060243426561184367, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  - {fileID: 4177266562986158303, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &7423208324905439974
 Transform:
   m_ObjectHideFlags: 0
@@ -4198,7 +4067,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7423208324905439974}
   - component: {fileID: 363141575798101175}
-  - component: {fileID: 6938386463114058407}
   - component: {fileID: 7560678110407400451}
   m_Layer: 0
   m_Name: Wheel-LR
@@ -4323,53 +4191,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2825943357129602803, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
---- !u!23 &8438687768226289627
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858229853746878914}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 5120509e2dd5a4d59adadce108a6e5c6, type: 2}
-  - {fileID: 2100000, guid: dbde99eef20504cf08e462c296930872, type: 2}
-  - {fileID: 4177266562986158303, guid: 009759a91e50f4535b9a5ac8733ee262, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!146 &8438687768226289628
 WheelCollider:
   m_ObjectHideFlags: 0

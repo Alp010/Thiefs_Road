@@ -3,76 +3,91 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    private CarStats carStats;
-    private GameTouchManager gameTouchManager;
+    [Header("Wheel Settings")]
+    [SerializeField] private Wheel[] wheels;
+    [SerializeField] private float maxSteerAngle = 30f;
 
-    enum AxelType
-    {
-        Front,
-        Rear
-    }
+    [SerializeField] private CarStats carStats;
+    private GameTouchManager gameTouchManager;
+    private Rigidbody carRb;
+
+    private float horizontalInput = 0f;
+
+    private enum AxelType { Front, Rear }
 
     [Serializable]
-    struct Wheel
+    private struct Wheel
     {
         public Transform wheelModel;
         public WheelCollider wheelCollider;
         public AxelType axelType;
     }
 
-    [SerializeField] private Wheel[] wheels;
-
-    private Rigidbody carRb;
-    private float maxSteerAngle = 30f;
-    private float currentSteerAngle;
-    private bool isBraking = false;
-    private int horizontalInput = 0;
-
     private void Start()
     {
-        carStats = FindAnyObjectByType<CarStats>();
         gameTouchManager = FindAnyObjectByType<GameTouchManager>();
-
-
         carRb = GetComponent<Rigidbody>();
     }
 
-
-    void Update()
+    private void Update()
     {
-        GetHorizontalInput();
-        
-        ApplyThrottle(1);
+        HandleInput();
+        HandleSteering();
+        ApplyThrottle();
+        UpdateWheelVisuals();
     }
 
-    private void ApplyThrottle(float amount)
+    private void HandleInput()
+    {
+        switch (gameTouchManager.CurrentTouchDirection)
+        {
+            case GameTouchManager.TouchDir.Left:
+                horizontalInput = -1f;
+                break;
+            case GameTouchManager.TouchDir.Right:
+                horizontalInput = 1f;
+                break;
+            default:
+                horizontalInput = 0f;
+                break;
+        }
+
+#if UNITY_EDITOR
+        Debug.Log($"Horizontal Input: {horizontalInput}");
+#endif
+    }
+
+    private void HandleSteering()
+    {
+        float steerAngle = maxSteerAngle * horizontalInput;
+
+        foreach (var wheel in wheels)
+        {
+            if (wheel.axelType == AxelType.Front)
+            {
+                wheel.wheelCollider.steerAngle = steerAngle;
+            }
+        }
+    }
+
+    private void ApplyThrottle()
     {
         foreach (var wheel in wheels)
         {
             if (wheel.axelType == AxelType.Rear)
             {
-                wheel.wheelCollider.motorTorque = amount * carStats.maxTorque;
+                wheel.wheelCollider.motorTorque = -carStats.maxTorque;
             }
         }
     }
 
-    private void GetHorizontalInput()
+    private void UpdateWheelVisuals()
     {
-        if (gameTouchManager.CurrentTouchDirection == GameTouchManager.TouchDir.Left)
+        foreach (var wheel in wheels)
         {
-            horizontalInput = -1;
+            wheel.wheelCollider.GetWorldPose(out Vector3 pos, out Quaternion rot);
+            wheel.wheelModel.position = pos;
+            wheel.wheelModel.rotation = rot;
         }
-        else if (gameTouchManager.CurrentTouchDirection == GameTouchManager.TouchDir.Right)
-        {
-            horizontalInput = 1;
-        }
-        else if (gameTouchManager.CurrentTouchDirection == GameTouchManager.TouchDir.None)
-        {
-            horizontalInput = 0;
-        }
-
-#if UNITY_EDITOR
-        Debug.Log(horizontalInput);
-#endif
     }
 }

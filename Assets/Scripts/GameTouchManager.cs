@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class GameTouchManager : MonoBehaviour
 {
@@ -49,7 +50,16 @@ public class GameTouchManager : MonoBehaviour
         if (isTouchActive)
         {
             UpdateTouchPosition();
-            DetectTouchDirection();
+
+            // Her karede kontrol: Eğer UI üzerindeyse yönü kapat
+            if (IsPointerOverUI(currentTouchPosition))
+            {
+                touchDirection = TouchDir.None;
+            }
+            else
+            {
+                DetectTouchDirection();
+            }
         }
         else
         {
@@ -59,13 +69,16 @@ public class GameTouchManager : MonoBehaviour
 
     private void OnTouchStarted(InputAction.CallbackContext context)
     {
-        if (IsPointerOverUI())
+        currentTouchPosition = touchPositionAction.ReadValue<Vector2>();
+
+        if (IsPointerOverUI(currentTouchPosition))
+        {
+            isTouchActive = false;
             return;
+        }
 
         isTouchActive = true;
-        startTouchPosition = touchPositionAction.ReadValue<Vector2>();
-        currentTouchPosition = startTouchPosition;
-        Debug.Log("Touch Started at: " + startTouchPosition);
+        startTouchPosition = currentTouchPosition;
     }
 
     private void OnTouchCanceled(InputAction.CallbackContext context)
@@ -77,11 +90,6 @@ public class GameTouchManager : MonoBehaviour
     private void UpdateTouchPosition()
     {
         currentTouchPosition = touchPositionAction.ReadValue<Vector2>();
-
-        if (currentTouchPosition != startTouchPosition)
-        {
-            Debug.Log("Dokunma anlık pozisyonu" + currentTouchPosition);
-        }
     }
 
     private void DetectTouchDirection()
@@ -94,16 +102,23 @@ public class GameTouchManager : MonoBehaviour
             touchDirection = TouchDir.Right;
     }
 
-    private bool IsPointerOverUI()
+    private bool IsPointerOverUI(Vector2 screenPosition)
     {
-#if UNITY_EDITOR
-        return EventSystem.current.IsPointerOverGameObject();
-#else
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPosition;
+
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
         {
-            return EventSystem.current.IsPointerOverGameObject(Touchscreen.current.primaryTouch.touchId.ReadValue());
+            if (result.gameObject.CompareTag("BlockInput"))
+            {
+                return true; // Engellenen UI'ya basıldı
+            }
         }
-        return false;
-#endif
+
+
+        return false; // UI'ya basıldı ama önemli değil veya hiç UI'ya basılmadı
     }
 }
